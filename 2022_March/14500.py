@@ -2,26 +2,42 @@ import sys
 
 N, M = map(int, sys.stdin.readline().split())
 matrix : list= []
-dx = [[1,2,3],[0,0,0],[1,1,0],[0,0,1],[1,2,0],[1,1,1],[0,-1,-2],[1,2,2],[1,0,0],[0,1,2],[0,0,-1],[0,1,1],[1,1,2],[0,-1,-1],[1,1,2],[1,2,1],[0,0,1],[0,0,-1],[-1,0,1]]
-dy = [[0,0,0],[1,2,3],[0,1,1],[1,2,2],[0,0,1],[0,1,2],[-1,-1,-1],[0,0,-1],[0,1,2],[1,1,1],[1,2,2,],[1,1,2],[0,-1,-1],[1,1,2],[0,1,1],[0,0,1],[1,2,1],[1,2,1],[1,1,1]]
+dy = [-1,0,1,0]
+dx = [0,1,0,-1]
+visited = [ [False]*M for _ in range(N) ]
+
 for i in range(N):
     matrix.append(list(map(int, sys.stdin.readline().split())))
+res = 0 
 
-maxnum = 0
-def func(a,b):
-    global maxnum
-    for i in range(19):
-        res = matrix[a][b]
-        for j in range(3):
-            temp_a = a+dy[i][j]
-            temp_b = b+dx[i][j]
-            if not (0<=temp_a<N and 0<=temp_b<M):
-                res = matrix[a][b]
-                break
-            res += matrix[temp_a][temp_b]
-        maxnum = max(res, maxnum)
+def dfs(y,x,value,cnt):
+    global res
+    if cnt == 4:
+        res = max(res, value)
+        return 
+    
+    for i in range(4):
+        temp_y = y+dy[i]
+        temp_x = x+dx[i]
+        if 0<=temp_y<N and 0<=temp_x<M and visited[temp_y][temp_x] == False:
+            if cnt ==2:
+                visited[temp_y][temp_x] = True
+                dfs(y,x,value+matrix[temp_y][temp_x],cnt+1)
+                visited[temp_y][temp_x] = False
+            visited[temp_y][temp_x] = True
+            dfs(temp_y,temp_x,value+matrix[temp_y][temp_x],cnt+1)
+            visited[temp_y][temp_x] = False
+
 
 for i in range(N):
     for j in range(M):
-        func(i,j)
-print(maxnum)
+        if i == 2 and j == 8:
+            visited[i][j] = True
+            dfs(i,j,matrix[i][j],1)
+            visited[i][j] = False
+        else:
+            visited[i][j] = True
+            dfs(i,j,matrix[i][j],1)
+            visited[i][j] = False
+
+print(res)
