@@ -6,8 +6,8 @@ data = list(map(int, sys.stdin.readline().split()))
 left = 0
 right = K - 1
 
-temp = sum(data[:right+1])
-res = [temp]
+temp = sum(data[:K])
+res = temp
 
 while right < N-1:
     right += 1
