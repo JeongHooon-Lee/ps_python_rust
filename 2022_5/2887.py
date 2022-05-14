@@ -33,5 +33,4 @@ for value, start, depart in edges:
         union[parents_of_depart] = union[parents_of_start] = min(
             parents_of_depart, parents_of_start)
         res += value
-print(edges)
 print(res)

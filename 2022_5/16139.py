@@ -1,4 +1,3 @@
-# pypy
 import sys
 
 S = sys.stdin.readline().strip()
@@ -16,4 +15,4 @@ for i in range(N):
     target, start, to = sys.stdin.readline().split()
     start = int(start)+1
     to = int(to)+1
-    sys.stdout.write(str(dp[ord(target)-97][to]-dp[ord(target)-97][start-1]))
+    print(dp[ord(target)-97][to]-dp[ord(target)-97][start-1])
