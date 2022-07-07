@@ -3,8 +3,9 @@ import sys
 N = int(input())
 values = list(map(int, sys.stdin.readline().split()))
 min_values: list = []
+res = 0
 if N == 1:
-    print(sum(values) - min(values))
+    print(sum(values) - max(values))
 else:
     min_values.append(min(values[0], values[-1]))
     min_values.append(min(values[1], values[4]))
