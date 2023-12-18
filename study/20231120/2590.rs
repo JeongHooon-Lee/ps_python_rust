@@ -14,19 +14,12 @@ fn main() {
             2 => {
                 let t = (papers[i] as f64 / 4.0).ceil() as i32;
                 result += t;
-                match papers[i] % 4 {
+                let rem = papers[i] % 4;
+                match rem {
                     0 => {}
-                    1 => {
-                        papers[0] -= 7;
-                        papers[1] -= 5;
-                    }
-                    2 => {
-                        papers[0] -= 6;
-                        papers[1] -= 3;
-                    }
-                    3 => {
-                        papers[0] -= 5;
-                        papers[1] -= 1;
+                    1 | 2 | 3 => {
+                        papers[0] -= 8 - rem;
+                        papers[1] -= 7 - 2 * rem;
                     }
                     _ => unreachable!(),
                 }
